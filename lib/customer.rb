@@ -69,4 +69,9 @@ class Customer
 
     Customer.reify_from_rows(rows)
   end
+
+  def carts
+    row = DB[:conn].execute("SELECT * FROM carts WHERE carts.customer_id = ?", self.id)
+    Cart.reify_from_rows(rows)
+  end
 end

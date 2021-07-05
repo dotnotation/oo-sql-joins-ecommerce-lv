@@ -1,6 +1,7 @@
 #CART
 # id Integer
 # customer_id Integer
+#cart belongs to a customer
 
 class Cart
   attr_accessor :id, :customer_id
@@ -36,7 +37,7 @@ class Cart
     DB[:connection].execute(sql).flatten.first
   end
 
-  def self.find(id)
+  def self.find(id) #searching through multiple carts 
     sql = <<-SQL
       SELECT * FROM carts WHERE id = ?
     SQL
@@ -67,8 +68,11 @@ class Cart
   end
 
   # Belongs To
+  #belongs to always has a foreign key column
   def customer
     Customer.find(self.customer_id)
+    #using customer table for query
+    #using Ruby and SQL
   end
 
   # How do we find products for this cart?
